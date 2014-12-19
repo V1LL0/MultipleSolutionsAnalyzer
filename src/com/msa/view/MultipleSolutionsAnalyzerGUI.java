@@ -167,9 +167,9 @@ public class MultipleSolutionsAnalyzerGUI extends JPanel{
 		panel3.add(startButton);
 
 		/*
-		 * Second Filtering Panel, showed only in case of statistics!
+		 * Filter Panel, showed only in case of statistics!
 		 * */
-		statistics_checkbox = new JCheckBox("<- Second Filtering (shows only records that respect the given rule)");
+		statistics_checkbox = new JCheckBox("<- Filter (shows only records that respect the given rule)");
 		statistics_checkbox.setSelected(false);
 		statistics_fields.setEnabled(false);
 		statistics_operators.setEnabled(false);
@@ -259,7 +259,7 @@ public class MultipleSolutionsAnalyzerGUI extends JPanel{
 							order_by_menu, order_mode_menu);
 
 					if(statistics_checkbox.isSelected()){
-						results = secondFilterOnResults(results);
+						results = filterOnResults(results);
 					}
 
 
@@ -293,8 +293,7 @@ public class MultipleSolutionsAnalyzerGUI extends JPanel{
 	}
 
 
-	private Map<Integer, List<String>> secondFilterOnResults(
-			Map<Integer, List<String>> results) {
+	private Map<Integer, List<String>> filterOnResults(Map<Integer, List<String>> results) {
 
 		Map<Integer, List<String>> newResults = new HashMap<Integer, List<String>>();
 
@@ -366,7 +365,6 @@ public class MultipleSolutionsAnalyzerGUI extends JPanel{
 
 		}catch(Exception e){
 			log.append("ERROR - The value must be a Real number\n");
-			log.setForeground(Color.red);
 		}
 
 
@@ -422,12 +420,12 @@ public class MultipleSolutionsAnalyzerGUI extends JPanel{
 		this.log.append("Number Of ROWS:\t\t"+(numberOfRows-1)+"\n");
 		this.log.append("Number Of COLUMNS:\t\t"+firstRow.size()+"\n");
 
-		Object[] options = {"Save into CSV", "Cancel"};
+		Object[] options = {"Save as CSV", "Cancel"};
 
 		/* GOOD!!! */
 		//JOptionPane.showMessageDialog(null, displayResultsPanel);
 
-		int answer = JOptionPane.showOptionDialog(resultsFrame, displayResultsPanel, "Results", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[1]); //resultsFrame, displayResultsPanel);
+		int answer = JOptionPane.showOptionDialog(resultsFrame, displayResultsPanel, "Results", JOptionPane.YES_NO_OPTION, JOptionPane.NO_OPTION, null, options, options[1]); //resultsFrame, displayResultsPanel);
 
 		if(answer == JOptionPane.YES_OPTION){
 			JFileChooser fileChooser = new JFileChooser();
@@ -451,7 +449,7 @@ public class MultipleSolutionsAnalyzerGUI extends JPanel{
 					pathToFile+=returnSlash()+name+".csv";
 				}
 
-				saveIntoCSV(results, pathToFile);
+				saveAsCSV(results, pathToFile);
 
 			}
 
@@ -463,7 +461,7 @@ public class MultipleSolutionsAnalyzerGUI extends JPanel{
 
 
 
-	private void saveIntoCSV(Map<Integer, List<String>> results,
+	private void saveAsCSV(Map<Integer, List<String>> results,
 			String pathToFile) {
 
 		try {
@@ -535,15 +533,6 @@ public class MultipleSolutionsAnalyzerGUI extends JPanel{
 
 
 
-	/******************************************************/
-	/******************************************************/
-	/******************************************************/
-	/***************** MAIN WITHOUT GUI *******************/
-	/******************************************************/
-	/******************************************************/
-	/******************************************************/
-
-
 
 	public static void main(String[] args) {
 
@@ -558,38 +547,6 @@ public class MultipleSolutionsAnalyzerGUI extends JPanel{
 	}
 
 
-	/******************************************************/
-	/******************************************************/
-	/******************************************************/
-	/***************** MAIN WITHOUT GUI *******************/
-	/******************************************************/
-	/******************************************************/
-	/******************************************************/
-
-
-	//		public static void main (String[] args){
-	//
-	//			DmbWekaConverterGUI dmbWekaConverterGUI = new DmbWekaConverterGUI();
-	//			File file = new File(args[0]);
-	//
-	//			//Set input and output
-	//			dmbWekaConverterGUI.getDmbWekaConverter().setFileSelected(file);
-	//			
-	//			String[] fileNameTmp = file.getName().split("\\.");
-	//			String fileNameWithoutFinalExtension = "";
-	//			for(int i=0; i<fileNameTmp.length-1; i++)
-	//				fileNameWithoutFinalExtension+=fileNameTmp[i];
-	//
-	//			dmbWekaConverterGUI.getDmbWekaConverter().setOutputPath(args[1]+dmbWekaConverterGUI.getUtilities().returnSlash()+fileNameWithoutFinalExtension+"_converted.csv");
-	//
-	//			if(args[2].equals("1")){
-	//				dmbWekaConverterGUI.getDmbWekaConverter().setDmbcsvToWeka(true);
-	//			}else{
-	//				dmbWekaConverterGUI.getDmbWekaConverter().setDmbcsvToWeka(false);
-	//			}
-	//			dmbWekaConverterGUI.getDmbWekaConverter().start();
-	//
-	//		}
 
 
 

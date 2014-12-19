@@ -22,6 +22,6 @@ public class QueryProcessor {
 	public Map<Integer, List<String>> processQuery(String query) {
 		return this.dao.retrieve(query, null, null);
 	}
-	
+
 
 }
